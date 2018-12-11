@@ -45,6 +45,7 @@ input.forEach(({time, action}) => {
 // console.log(input.map(it => it.time.format('YYYY-MM-DD HH:mm:ss') + ' - ' + it.action))
 // console.log(resultByGuard)
 
+console.log("=== PART ONE ===")
 const winner = lodash.reduce(resultByGuard, (maxGuard, nextGuard) => {
     if (maxGuard.total < nextGuard.total) {
         return nextGuard
@@ -58,3 +59,29 @@ const minuteMinute = winner.byMinutes.findIndex(it => it === maxMInuteAslepp)
 console.log('winner minutes most asleep', minuteMinute)
 
 console.log("result ==> ", minuteMinute * Number(winner.id))
+
+
+console.log("\n\n=== PART TWO ===")
+const mostSleeper = lodash.reduce(resultByGuard, (maxGuard, nextGuard) => {
+    
+    const maxMInuteAslepp = lodash.max(nextGuard.byMinutes)
+    if (maxMInuteAslepp > maxGuard.maxMinuteAmount) {
+        const minuteMinute = nextGuard.byMinutes.findIndex(it => it === maxMInuteAslepp)
+        return {id: nextGuard.id, maxMinute: minuteMinute, maxMinuteAmount: maxMInuteAslepp}
+    }
+    return maxGuard
+}, {id: null, maxMinute: 0, maxMinuteAmount: 0})
+console.log(mostSleeper)
+console.log("result", Number(mostSleeper.id) * mostSleeper.maxMinute)
+
+// const initialValue = []
+// let maxMinute = 
+// for(let i=0; i<60; i++) {initialValue.push({})}
+// const frequencyByMinutesAndByGuard = lodash.reduce(resultByGuard, (frequencyByMinutesAndByGuard, nextGuard) => {
+//     nextGuard.byMinutes.forEach((it, index) => {
+//         frequencyByMinutesAndByGuard[index][nextGuard.id] = it;
+//     })
+//     return frequencyByMinutesAndByGuard
+// }, initialValue)
+
+// console.log(frequencyByMinutesAndByGuard)
